@@ -30,19 +30,21 @@ function onStart()
     },
   })
 
-  
+  // TODO Enter your creds to automate signin
   let myemail = "EMAIL@EMAIL.COM"
   let mypassword = "MYPASSWORD"
-  win.webContents.on('did-navigate', async (event, url) => {
-    if (url === 'https://deepestworld.com/login') {
-      await win.webContents.executeJavaScript(`
+  if (myemail != "EMAIL@EMAIL.COM") {
+    win.webContents.on('did-navigate', async (event, url) => {
+      if (url === 'https://deepestworld.com/login') {
+        await win.webContents.executeJavaScript(`
         document.querySelector("input#username").value = ${JSON.stringify(myemail)};
         document.querySelector("input#password").value = ${JSON.stringify(mypassword)};
         document.querySelector("button[type=submit]").click();
       `)
-      return
-    }
-  })
+        return
+      }
+    })
+  }
 
   const template = [
       // { role: 'fileMenu' }
