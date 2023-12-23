@@ -1,0 +1,14 @@
+{
+  "name": "deepestworldex",
+  "version": "1.0.0",
+  "description": "extended client for Deepest World",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "patrick walker",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^28.1.0"
+  }
+}
