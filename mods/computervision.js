@@ -573,8 +573,6 @@ setTimeout(() => {
 
     dw.on("drawEnd", (ctx, cx, cy) => {
 
-        if (noRender) return
-
         let camOffsetX = Math.round(cx * 96 - Math.floor(ctx.canvas.width / 2))
         let camOffsetY = Math.round(cy * 96 - Math.floor(ctx.canvas.height / 2))
         let squareWidth2 = gridWidth / gridArrWidth * 96
@@ -616,8 +614,6 @@ setTimeout(() => {
         }
     })
     dw.on("drawEnd", (ctx, cx, cy) => {
-
-        if (noRender) return
 
         ctx.strokeStyle = "green"
         ctx.fillStyle = "white"
@@ -803,8 +799,6 @@ setTimeout(() => {
         ctx.fillText(name, x, y - 12)
     })
     dw.on("drawEnd", (ctx, cx, cy) => {
-
-        if (noRender) return
 
         for (let m of dw.findEntities(e => e.ai)) {
             drawLineToPOI(ctx, cx, cy, { x: m.x + m.dx, y: m.y + m.dy }, "black", m)

@@ -3,8 +3,6 @@ dw.on("drawEnd", (ctx, cx, cy) => {
 
     return
 
-    if (noRender) return
-
     let camOffsetX = Math.round(cx * 96 - Math.floor(ctx.canvas.width / 2))
     let camOffsetY = Math.round(cy * 96 - Math.floor(ctx.canvas.height / 2))
     let monsters = dw.findEntities((e) => e.ai)

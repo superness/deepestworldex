@@ -32,7 +32,7 @@ dw.on("hit", (data) => {
 let lastTextUpdate = new Date()
 dw.on("drawEnd", (ctx, cx, cy) => {
 
-    if (noRender) return
+    //return
 
     ctx.strokeStyle = "green"
     ctx.fillStyle = "white"

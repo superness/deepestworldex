@@ -19,7 +19,6 @@ class LogMessages {
     initialize() {
         dw.on("drawEnd", (ctx, cx, cy) => {
             return
-            if (noRender) return
 
             let i = 0;
             for (let msg of this.messages) {
