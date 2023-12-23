@@ -131,12 +131,6 @@ async function buildCharacter(scriptPath, outFilePath, onComplete) {
 
   fs.writeFileSync(outFilePath, scriptContent);
   onComplete()
-
-  // load every mod's content into memory
-  // inject some code to call any of their preinit methods that exist
-  // inject some code to call any of their appinit methods that exist
-  // append the character code
-  // write it to disk
 }
 
 exStartup()
