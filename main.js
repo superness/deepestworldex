@@ -31,8 +31,8 @@ function onStart()
   })
 
   
-  let myemail = "EMAIL@EMAIL.COM"
-  let mypassword = "MYPASSWORD"
+  let myemail = "deepestworldsuper@gmail.com"//"EMAIL@EMAIL.COM"
+  let mypassword = "4sGPY4Unpxc3qvC"//"MYPASSWORD"
   win.webContents.on('did-navigate', async (event, url) => {
     if (url === 'https://deepestworld.com/login') {
       await win.webContents.executeJavaScript(`
@@ -120,21 +120,14 @@ async function buildCharacter(scriptPath, outFilePath, onComplete) {
   let files = fs.readdirSync(modsDir)
     
   for(let file of files) {
-    console.log(file)
     
     let data = fs.readFileSync(`${modsDir}\\${file}`, 'utf-8')
 
-    console.log(`read ${file}`, data)
     scriptContent += data + "\r\n"
   }
   
-  console.log('post mods', scriptContent)
-  
   let data = fs.readFileSync(scriptPath, 'utf-8')
-  console.log(`read ${scriptPath}`, data)
   scriptContent += data + "\r\n"
-
-  console.log('to write', scriptContent)
 
   fs.writeFileSync(outFilePath, scriptContent);
   onComplete()
