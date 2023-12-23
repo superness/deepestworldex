@@ -508,7 +508,6 @@ let gridArrHeight = gridHeight * 3
 let scaryMonsterRadius = ComputerVision.scaryMonsterRadius
 let terrainThickness = ComputerVision.terrainThickness
 let entityThickness = ComputerVision.entityThickness
-let targetZoneLevel = dw.getZoneLevel()//dw.c.level
 let nearMonsterUnsafeRadius = 0// TODO 1.25
 
 let visionGrid = new Array(gridArrWidth)

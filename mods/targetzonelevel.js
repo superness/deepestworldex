@@ -1,4 +1,6 @@
 
+let targetZoneLevel = dw.getZoneLevel()//dw.c.level
+
 // Manage the zone the bot moves toward
 let lastCombat = new Date()
 setInterval(function () {
