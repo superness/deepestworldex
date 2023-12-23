@@ -31,8 +31,8 @@ function onStart()
   })
 
   
-  let myemail = "deepestworldsuper@gmail.com"//"EMAIL@EMAIL.COM"
-  let mypassword = "4sGPY4Unpxc3qvC"//"MYPASSWORD"
+  let myemail = "EMAIL@EMAIL.COM"
+  let mypassword = "MYPASSWORD"
   win.webContents.on('did-navigate', async (event, url) => {
     if (url === 'https://deepestworld.com/login') {
       await win.webContents.executeJavaScript(`
