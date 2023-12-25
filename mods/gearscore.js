@@ -21,7 +21,7 @@ function getMyGearScore(useMaxHp = false) {
 
     let hpScorePart = (useMaxHp ? dw.c.hpMax : dw.c.hp) + ((dw.c.skills[0].fx?.mpToHpCost == 1) ? (useMaxHp ? dw.c.mpMax : dw.c.mp) : 0)
 
-    let skillGearScoreDmg = getGearScoreSkillDamage(dw.c.skills[0]) * 1.5 // TODO hack add regen from conservation
+    let skillGearScoreDmg = getGearScoreSkillDamage(dw.c.skills[0])// * 1.5 // TODO hack add regen from conservation
 
     return skillGearScoreDmg + dw.c.hpRegen + dw.c.mpRegen
 

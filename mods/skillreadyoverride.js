@@ -33,5 +33,5 @@ dw.on("gcd", data => {
     }
 })
 dw.on("cd", data => {
-    skillUsedMap[dw.c.skills.findIndex(s => s.md == lastSkillMsg)] = new Date()
+    skillUsedMap[dw.c.skills.findIndex(s => s?.md == lastSkillMsg)] = new Date()
 })

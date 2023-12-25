@@ -33,7 +33,7 @@ function doMovementSkills() {
     let moveToDistTarget = dw.distance(target, moveToSpot)
 
     if (moveToDistTarget < curDistTarget) {
-        console.log(moveToDistTarget, curDistTarget, 'not moving to closer spot to target')
+        //console.log(moveToDistTarget, curDistTarget, 'not moving to closer spot to target')
         return false
     }
 
