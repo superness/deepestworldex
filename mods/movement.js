@@ -56,7 +56,7 @@ setInterval(function () {
 
         // Clear the recent spot list if we are trapped under them
         if (goodSpots.length == 0) {
-            console.log('resetting recent spots')
+            //console.log('resetting recent spots')
             //targetZoneLevel += 3
             recentSpots = []
         }
@@ -81,7 +81,7 @@ setInterval(function () {
         }
 
         if (!bestSpot) {
-            console.log('NO BEST SPOT TO MOVE TO')
+            //console.log('NO BEST SPOT TO MOVE TO')
             //tpToBase()
         }
     }
@@ -96,12 +96,19 @@ setInterval(function () {
 // Emit the move command
 let moveToSpot = { x: dw.c.x, y: dw.c.y }
 let movingToSpot = { x: dw.c.x, y: dw.c.y }
+let movementPriority = 0
+
 setInterval(function () {
     if (!moveToSpot) {
         return
     }
     if (cache.get(`${dw.c.name}_manualmove`) === true)
         return
+
+    if(movementPriority != 0) {
+        return
+    }
+
     movingToSpot = movingToSpot ?? moveToSpot
 
     if (dw.distance(moveToSpot, movingToSpot) > 11) movingToSpot = moveToSpot
@@ -115,3 +122,14 @@ setInterval(function () {
         return
     dw.emit("move", movingToSpot)
 }, movePeriod)
+
+addMenuContextMenuButton(cache.get(`${dw.c.name}_manualmove`) ? 'Manual' : 'Auto', (e) => {
+    let manualMove = !cache.get(`${dw.c.name}_manualmove`)
+    if (manualMove) {
+        e.innerText = 'Manual'
+    }
+    else {
+        e.innerText = 'Auto'
+    }
+    cache.set(`${dw.c.name}_manualmove`, manualMove)
+})

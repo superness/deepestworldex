@@ -5,19 +5,8 @@ setInterval(function () {
 }, 1000)
 
 function moveRecentSpotNearChunks(spot) {
-
-
-    // TODO - move toward chunk
-    // THEN resolve collisions
-
-
-    // but like where do I wanna go?
-    // it's N distance from me to the connection
     let distConnection = spot.r * 0.9
 
-    // TODO move near the closest other recent spot or nontraversable entity
-    //  target a position at a distance from that to form a boundary around visited spots :)  
-    //  it will be great!
     let nonTraversableEntities = getNonTraversableEntities()
     //let canSeeNonTraversables = nonTraversableEntities.filter(e => ComputerVision.hasLineOfSight(e, spot, nonTraversableEntities, 0))
     let closestConnection = nonTraversableEntities.filter(e => e.chunk)
@@ -148,3 +137,4 @@ function getSpotRecentlyUsed(x, y, notThisOne = null) {
     }
     return false
 }
+

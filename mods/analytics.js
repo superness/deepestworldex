@@ -121,7 +121,6 @@ class DWAnalytics {
             }
 
             dwa.onDeath(actor.md, actor.level, actor.hpMax, deathDescription)
-            moveToSpot = movingToSpot = dw.c.respawn;
             this.dw.setTarget(0)
 
         } else if (hit.rip && hit.actor == this.dw.c.id) {

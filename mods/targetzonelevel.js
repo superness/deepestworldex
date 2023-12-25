@@ -17,7 +17,7 @@ setInterval(function () {
         dw.log(`Reducing target zone level to '${targetZoneLevel}' because of stale combat`)
     }
 
-    targetZoneLevel = 50//Math.min(dw.c.level, targetZoneLevel)
+    targetZoneLevel = dw.c.mission?.item?.qual ?? Math.min(dw.c.level, targetZoneLevel)
 }, 1000)
 
 dw.on("hit", (data) => {
@@ -46,7 +46,7 @@ dw.on("hit", (data) => {
         }
     }
 
-    targetZoneLevel = 50//Math.min(dw.c.level, targetZoneLevel)
+    targetZoneLevel = dw.c.mission?.item?.qual ?? Math.min(dw.c.level, targetZoneLevel)
 })
 
 
