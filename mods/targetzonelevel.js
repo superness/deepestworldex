@@ -17,6 +17,7 @@ setInterval(function () {
         dw.log(`Reducing target zone level to '${targetZoneLevel}' because of stale combat`)
     }
 
+    //targetZoneLevel = 45
     targetZoneLevel = dw.c.mission?.item?.qual ?? Math.min(dw.c.level, targetZoneLevel)
 }, 1000)
 
@@ -31,13 +32,13 @@ dw.on("hit", (data) => {
 
         if (hit.rip) {
             if (hit.actor == dw.c.id) {
-                if (dw.c.hp / dw.c.hpMax > 0.5) {
+                if (dw.c.hp / dw.c.maxHp > 0.5) {
                     if ((target?.level ?? 0) >= targetZoneLevel) {
                         targetZoneLevel++
                         dw.log(`changing target zone level up to ${targetZoneLevel}`)
                     }
                 }
-                if (dw.c.hp / dw.c.hpMax < 0.5) {
+                if (dw.c.hp / dw.c.maxHp < 0.5) {
                     targetZoneLevel--
                     targetZoneLevel = Math.max(1, targetZoneLevel)
                     dw.log(`changing target zone level down to ${targetZoneLevel}`)
@@ -46,6 +47,7 @@ dw.on("hit", (data) => {
         }
     }
 
+    //targetZoneLevel = 45
     targetZoneLevel = dw.c.mission?.item?.qual ?? Math.min(dw.c.level, targetZoneLevel)
 })
 
@@ -58,7 +60,7 @@ dw.on('drawEnd', (ctx) => {
     ctx.font = "48px system-ui"
     const x = ctx.canvas.width / 2
     const y = 48
-    const text = `🎯${targetZoneLevel.toLocaleString()}   🌀${dw.getZoneLevel(dw.c.respawn?.x ?? 0, dw.c.respawn.y ?? 0, dw.c.respawn.l ?? 0)}`
+    const text = `🎯${targetZoneLevel.toLocaleString()}   🌀${dw.getZoneLevel(dw.c.spawn.x ?? 0, dw.c.spawn.y ?? 0, dw.c.spawn.z ?? 0)}`
     ctx.strokeText(text, x, y)
     ctx.fillText(text, x, y)
 })

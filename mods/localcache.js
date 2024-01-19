@@ -6,7 +6,7 @@ class LocalCache {
     get(key) {
         if (this.valueCache[key] == undefined) {
             console.log('adding to local cache', key, this.valueCache, this.valueCache[key], dw.get(key))
-            this.valueCache[key] = dw.get(key) ?? null
+            this.valueCache[key] = dw.get(key) ?? false
         }
         return this.valueCache[key]
     }

@@ -19,15 +19,15 @@ function getMyLowestArmor() {
 function getMyGearScore(useMaxHp = false) {
     let bestSkill = dw.c.skills[0]
 
-    let hpScorePart = (useMaxHp ? dw.c.hpMax : dw.c.hp) + ((dw.c.skills[0].fx?.mpToHpCost == 1) ? (useMaxHp ? dw.c.mpMax : dw.c.mp) : 0)
+    let hpScorePart = (useMaxHp ? dw.c.maxHp : dw.c.hp) + ((dw.c.skills[0].fx?.mpToHpCost == 1) ? (useMaxHp ? dw.c.maxMp : dw.c.mp) : 0)
 
     let skillGearScoreDmg = getGearScoreSkillDamage(dw.c.skills[0])// * 1.5 // TODO hack add regen from conservation
 
-    return skillGearScoreDmg + dw.c.hpRegen + dw.c.mpRegen
+    return skillGearScoreDmg + dw.c.stats.hpRegen + dw.c.stats.mpRegen
 
     // TODO THIS IS JUST MY DMG NOW
 
-    let dmgContribution = Math.pow(skillGearScoreDmg + dw.c.hpRegen, 1.5) + getMyLowestArmor()
+    let dmgContribution = Math.pow(skillGearScoreDmg + dw.c.stats.hpRegen, 1.5) + getMyLowestArmor()
     let potentialScore = dmgContribution * hpScorePart
     let maxTargetLife = ComputerVision.getMaxDamageDealtBeforeOom(dw.c)
     let maxDmgScore = maxTargetLife * dmgContribution

@@ -8,9 +8,7 @@ setInterval(async () => {
         ++idx
         if(!item) continue
 
-        console.log('try combine', item, idx)
-
-        if(dw.md.items[item.md].s && idx < 32) {
+        if(dw.md.items[item.md]?.s && idx < 32) {
             let openIdx = dw.c.bag.findLastIndex(i => i == null)
             dw.moveItem('bag', idx, 'bag', openIdx)
             await sleep(100)

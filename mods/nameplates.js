@@ -29,7 +29,7 @@ setTimeout(() => {
             ctx.strokeStyle = "black"
             ctx.fillStyle = "red"
             ctx.beginPath()
-            ctx.rect(x2 - 96 / 2, y2, 96 * monster.hp / monster.hpMax, 8)
+            ctx.rect(x2 - 96 / 2, y2, 96 * monster.hp / monster.maxHp, 8)
             ctx.fill()
             ctx.fillStyle = `rgb(255, 255, 255, 0.3)`
             ctx.beginPath()
@@ -95,7 +95,7 @@ setTimeout(() => {
             ctx.strokeStyle = "black"
             ctx.fillStyle = "blue"
             ctx.beginPath()
-            ctx.rect(x2 - w / 2, y2, w * pc.hp / pc.hpMax, h)
+            ctx.rect(x2 - w / 2, y2, w * pc.hp / pc.maxHp, h)
             ctx.fill()
             ctx.fillStyle = `rgb(255, 255, 255, 0.3)`
             ctx.beginPath()
@@ -129,18 +129,18 @@ setTimeout(() => {
         ctx.fill()
         ctx.strokeStyle = "black"
         ctx.fillStyle = "green"
-        if (dw.c.hp / dw.c.hpMax < 0.66) {
+        if (dw.c.hp / dw.c.maxHp < 0.66) {
             ctx.fillStyle = "orange"
         }
-        if (dw.c.hp / dw.c.hpMax < 0.33) {
+        if (dw.c.hp / dw.c.maxHp < 0.33) {
             ctx.fillStyle = "red"
         }
         ctx.beginPath()
-        ctx.rect(x - nameplateWidth / 2, y, nameplateWidth * dw.c.hp / dw.c.hpMax, nameplateHeight)
+        ctx.rect(x - nameplateWidth / 2, y, nameplateWidth * dw.c.hp / dw.c.maxHp, nameplateHeight)
         ctx.fill()
         ctx.fillStyle = "rgb(0, 0, 255, 0.6"
         ctx.beginPath()
-        ctx.rect(x - nameplateWidth / 2, y + 3 * nameplateHeight / 4, nameplateWidth * dw.c.mp / dw.c.mpMax, nameplateHeight / 4)
+        ctx.rect(x - nameplateWidth / 2, y + 3 * nameplateHeight / 4, nameplateWidth * dw.c.mp / dw.c.maxMp, nameplateHeight / 4)
         ctx.fill()
         ctx.fillStyle = `rgb(255, 255, 255, 0.3)`
         ctx.beginPath()

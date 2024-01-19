@@ -37,7 +37,7 @@ class ComputerVision {
         let meleeMulti = 1
         let rangedMulti = 1
 
-        let hpUse = useFullHp ? monster.hpMax : monster.hp
+        let hpUse = useFullHp ? monster.maxHp : monster.hp
 
         if ((c.mission?.item.r ?? 0) > 0) {
             hpUse *= (1 + (c.mission.item.r * 1))
@@ -57,31 +57,16 @@ class ComputerVision {
         // !monster.md.toLowerCase().includes('spiked') &&
         // !monster.md.toLowerCase().includes('elemental')) {
         {
-            let maxHpUse = monster.hpMax - (5 * ComputerVision.getSkillDamage(c.skills[0]))
+            // let maxHpUse = monster.maxHp - (5 * ComputerVision.getSkillDamage(c.skills[0]))
 
-            if (hpUse > maxHpUse) {
-                hpUse = maxHpUse
-            }
+            // if (hpUse > maxHpUse) {
+            //     hpUse = maxHpUse
+            // }
 
-            hpUse = Math.max(hpUse, 1)
+            // hpUse = Math.max(hpUse, 1)
         }
 
         return Math.sqrt(hpUse * (ComputerVision.getMonsterDmg(monster, c)))
-            * (monster.md.toLowerCase().includes('alarm') ? meleeMulti : 1)
-            * (monster.md.toLowerCase().includes('ranged') ? rangedMulti : 1)
-            * (monster.md.toLowerCase().includes('spiked') ? rangedMulti : 1)
-            * (monster.md.includes('Def') ? 1.25 : 1)
-            * (monster.md == 'giantGoo' ? meleeMulti : 1)
-            * (monster.md == 'goo' ? meleeMulti : 1)
-            * (monster.md == 'orc' ? meleeMulti : 1)
-            * (monster.md == 'orcPow' ? meleeMulti : 1)
-            * (monster.md == 'orcDef' ? meleeMulti : 1)
-            * (monster.md == 'meleeDps' ? meleeMulti : 1)
-            * (monster.md == 'meleePow' ? meleeMulti : 1)
-            * (monster.md == 'meleeDef' ? meleeMulti : 1)
-            * (monster.md == 'elemental' ? meleeMulti : 1)
-            * missionMulti
-            * desertMulti
     }
 
     static getMonsterDmg(monster, c) {
@@ -136,7 +121,10 @@ class ComputerVision {
     }
 
     static getMyBattleScore(c, useMaxHp = false) {
-        let hpScorePart = (useMaxHp ? c.hpMax : c.hp) + (c.skills.some(e => e?.md == "painkiller") ? (useMaxHp ? c.mpMax : c.mp) : 0)
+
+        return 6000
+
+        let hpScorePart = (useMaxHp ? c.maxHp : c.hp) + (c.skills.some(e => e?.md == "painkiller") ? (useMaxHp ? c.maxMp : c.mp) : 0)
 
         let potentialScore = (ComputerVision.getMyDmg(c) + c.hpRegen + (c.skills.some(e => e?.md == "painkiller") ? c.mpRegen : 0)) * hpScorePart
         let maxTargetLife = ComputerVision.getMaxDamageDealtBeforeOom(c)
@@ -212,7 +200,7 @@ class ComputerVision {
         //     return false
         // }
 
-        if (c.hp < (c.hpMax * 0.9) && !c.combat) {
+        if (c.hp < (c.maxHp * 0.9) && !c.combat) {
             return false
         }
 
@@ -347,22 +335,38 @@ class ComputerVision {
     }
 
     static getSpotInfo(x, y, monsters, nonTraversableEntities, c, gearTesting, optimalMonsterRange, optimalMonsterRangeBuffer, targetZoneLevel, targetId, nearMonsterUnsafeRadius) {
-        let nearMonsters = monsters.filter((m) => ComputerVision.distance({ x, y }, m))
+
+
+
+        let nearMonsters = monsters.filter((m) => ComputerVision.distance({ x: x, y: y }, m))
         let target = monsters.filter((entity) => entity.id === targetId).shift()
         let spotValue = 50
         let spotType = "open"
-        if (!ComputerVision.hasLineOfSight({ x, y }, c, nonTraversableEntities)) {
+        if (!ComputerVision.hasLineOfSight({ x: x, y: y }, c, nonTraversableEntities)) {
             spotValue = 555
             spotType = "obstructed"
         }
-        if (!ComputerVision.hasLineOfSafety({ x, y }, c, monsters.filter(m => m.id != targetId), c, targetId)) {
+        if (!ComputerVision.hasLineOfSafety({ x: x, y: y }, c, monsters.filter(m => m.id != targetId), c, targetId)) {
             spotValue = 555
             spotType = "dangerous"
         }
+
+
+
+
+        // TODO REMOVE patwalk
+        // mission patch to stay in range
+        if (c.mission && ComputerVision.distance(c.mission, { x: x, y: y }) > 95) {
+            spotValue = 555
+            spotType = "obstructed"
+        }
+        // TODO REMOVE end
+
+
         if (spotType != "obstructed" && spotType != "dangerous") {
             for (let monster of nearMonsters) {
                 let monsterTest = { x: monster.x, y: monster.y }
-                let dist = Math.max(ComputerVision.distance({ x, y }, monster))
+                let dist = Math.max(ComputerVision.distance({ x: x, y: y }, monster))
 
                 if (dist < optimalMonsterRange + optimalMonsterRangeBuffer && !gearTesting && ComputerVision.isValidTarget(monster, nonTraversableEntities, c, monsters, targetZoneLevel, nearMonsterUnsafeRadius)) {
                     let delta = 0
@@ -547,11 +551,25 @@ setTimeout(() => {
             m.biome = 0
         }
 
-        visionGridWorker.postMessage({
+        let msgObj = {
             gridUpdatePeriod: gridUpdatePeriod,
             monsters: monsters,
             nonTraversableEntities: getNonTraversableEntities(),
-            c: { mission: dw.c.mission, party: dw.c.party, id: dw.c.id, x: dw.c.x, y: dw.c.y, skills: dw.c.skills, hp: dw.c.hp, hpMax: dw.c.hpMax, hpRegen: dw.c.hpRegen, mp: dw.c.mp, mpRegen: dw.c.mpRegen, combat: dw.c.combat },
+            c: {
+                mission: dw.c.mission,
+                party: dw.c.party, 
+                id: dw.c.id, 
+                x: dw.c.x, 
+                y: dw.c.y, 
+                skills: dw.c.skills, 
+                hp: dw.c.hp, 
+                hpMax: dw.c.maxHp, 
+                hpRegen: dw.c.stats.hpRegen, 
+                mp: dw.c.mp, 
+                mpMax: dw.c.maxMp, 
+                mpRegen: dw.c.stats.mpRegen, 
+                combat: dw.c.combat
+            },
             gridWidth: gridWidth,
             gridHeight: gridHeight,
             gridArrWidth: gridArrWidth,
@@ -562,14 +580,14 @@ setTimeout(() => {
             optimalMonsterRangeBuffer: optimalMonsterRangeBuffer,
             targetZoneLevel: targetZoneLevel,
             nearMonsterUnsafeRadius: nearMonsterUnsafeRadius
-        });
+        }
+        visionGridWorker.postMessage(JSON.parse(JSON.stringify(msgObj)));
 
         await sleep(gridUpdatePeriod);
         updateVisionGridOld()
     }
 
     setTimeout(updateVisionGridOld, 100);
-
 
     dw.on("drawEnd", (ctx, cx, cy) => {
 
@@ -691,7 +709,7 @@ function drawLineToPOI(ctx, cx, cy, target, style, from = dw.c) {
     }
 }
 
-setTimeout( () => {
+setTimeout(() => {
     addMenuContextMenuButton(cache.get(`showComputerVision`) ? 'VFX 🐵' : 'VFX 🙈', (e) => {
         let showComputerVision = !cache.get(`showComputerVision`)
         if (showComputerVision) {
@@ -702,7 +720,7 @@ setTimeout( () => {
         }
         cache.set(`showComputerVision`, showComputerVision)
     })
-    
+
     let showComputerVision = cache.get("showComputerVision") ?? true
     cache.set("showComputerVision", showComputerVision)
 }, 100)

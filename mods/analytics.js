@@ -88,15 +88,15 @@ class DWAnalytics {
                 characterId: this.getDBId(),
                 monsterName: monster?.md ?? "NULL",
                 damage: hit.amount,
-                description: `lvl ${hitSource.level} ${hitSource.md} [${hitSource.hp}/${hitSource.hpMax}] attacking lvl ${hitDest.level} ${hitDest.md} [${hitDest.hp}/${hitDest.hpMax}] for ${hit.amount} with ${hit.md ?? 'attack'}`,
+                description: `lvl ${hitSource.level} ${hitSource.md} [${hitSource.hp}/${hitSource.maxHp}] attacking lvl ${hitDest.level} ${hitDest.md} [${hitDest.hp}/${hitDest.maxHp}] for ${hit.amount} with ${hit.md ?? 'attack'}`,
                 isCharacterHit: isCharacterHit,
                 skillUsed: (hit.md ?? "attack"),
                 when: new Date(),
                 monsterID: monster?.id ?? -1,
                 characterHP: this.dw.c.hp,
-                characterHPMax: this.dw.c.hpMax,
+                characterHPMax: this.dw.c.maxHp,
                 monsterHP: monster?.hp ?? -1,
-                monsterHPMax: monster?.hpMax ?? -1,
+                monsterHPMax: monster?.maxHp ?? -1,
                 monsterLevel: monster?.level ?? -1,
                 monsterRarity: monster?.r ?? 0
             })
@@ -120,7 +120,7 @@ class DWAnalytics {
                 deathDescription += ` - ${JSON.stringify(monstersTargettingMeDescInfo)}`
             }
 
-            dwa.onDeath(actor.md, actor.level, actor.hpMax, deathDescription)
+            dwa.onDeath(actor.md, actor.level, actor.maxHp, deathDescription)
             this.dw.setTarget(0)
 
         } else if (hit.rip && hit.actor == this.dw.c.id) {

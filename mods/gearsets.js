@@ -525,7 +525,7 @@ function getItemFilterScore(item, filter) {
 
     if(filter.must.length > matchingMustMods.length) return 0
 
-    return (matchingMods[0] + matchingMods[matchingMods.length - 1]) / 2
+    return (matchingMods[0] + matchingMods[matchingMods.length - 1]) / 2 * item.qual
 }
 
 

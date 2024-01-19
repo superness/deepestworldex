@@ -65,7 +65,7 @@ setInterval(function () {
         }
     }
 
-    if ((!target || target.hp == target.hpMax) && monsterTargettingMe && target != monsterTargettingMe) {
+    if ((!target || target.hp == target.maxHp) && monsterTargettingMe && target != monsterTargettingMe) {
         target = monsterTargettingMe
         if (!recordThat.getIsRecording()) {
             recordThat.start()

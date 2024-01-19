@@ -13,7 +13,7 @@ setInterval(function () {
 
     if (farmTrees) return
 
-    if (dw.c.bag.filter(i => !i).length < 4 && dw.distance(dw.c.respawn, dw.c) > 10) {
+    if (dw.c.bag.filter(i => !i).length < 4 && dw.distance(dw.c.spawn, dw.c) > 10) {
         tpToBase()
         return
     }
@@ -124,7 +124,7 @@ setInterval(function () {
 }, movePeriod)
 
 addMenuContextMenuButton(cache.get(`${dw.c.name}_manualmove`) ? 'Manual' : 'Auto', (e) => {
-    let manualMove = !cache.get(`${dw.c.name}_manualmove`)
+    let manualMove = !(cache.get(`${dw.c.name}_manualmove`) ?? false)
     if (manualMove) {
         e.innerText = 'Manual'
     }

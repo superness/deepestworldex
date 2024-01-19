@@ -15,7 +15,7 @@ dw.on("hit", (data) => {
         }
         floatingText.push(newText)
         if (hit.rip && hit.target == dw.c.id) {
-            moveToSpot = movingToSpot = dw.c.respawn
+            //moveToSpot = movingToSpot = dw.c.spawn
             if (farmTrees) {
                 cache.set(`${dw.c.name}_manualmove`, true)
                 setTimeout(() => cache.set(`${dw.c.name}_manualmove`, false), 6000)
