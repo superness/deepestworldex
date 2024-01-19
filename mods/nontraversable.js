@@ -12,7 +12,7 @@ function updateNonTraversableEntities() {
       nonTraversableEntities.push({ x: e.x, y: e.y - hitbox.h, id: e.id, entity:1 })
       nonTraversableEntities.push({ x: e.x, y: e.y - hitbox.h / 2, id: e.id, entity:1 })
   }
-  let chunkPropertyKeys = Object.keys(dw.chunks).filter((k) => k.startsWith(dw.c.l))
+  let chunkPropertyKeys = Object.keys(dw.chunks).filter((k) => k.startsWith(dw.c.z))
   for (let k of chunkPropertyKeys) {
       let l = k.split(".")[0] - 1
       let r = k.split(".")[2]

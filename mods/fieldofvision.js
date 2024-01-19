@@ -13,7 +13,7 @@
   
   //   for (let i = 0; i < dw.entities.length; i++) {
   //     const entity = dw.entities[i]
-  //     if (!('ai' in entity) || entity.l !== dw.c.l || !!entity.targetId) {
+  //     if (!('ai' in entity) || entity.z !== dw.c.z || !!entity.targetId) {
   //       continue
   //     }
   

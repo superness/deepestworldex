@@ -17,7 +17,7 @@ setInterval(function () {
         optimalMonsterRangeBuffer = 0// 1
     else if (gearTesting)
         optimalMonsterRangeBuffer = 1
-    else if ((dw.c.hp < dw.c.hpMax * 0.8) && dw.c.combat != 1)
+    else if ((dw.c.hp < dw.c.maxHp * 0.8) && dw.c.combat != 1)
         optimalMonsterRangeBuffer = 1
     else
         optimalMonsterRangeBuffer = -0.1

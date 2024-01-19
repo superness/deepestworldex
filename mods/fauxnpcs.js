@@ -77,22 +77,23 @@ function getNpcDef(type) {
     return null
 }
 
-// setInterval(() => {
-//     for (let npc of npcs) {
-//         if (dw.distance(dw.c, npc) < 1) {
-//             if (npc.nearPlayer) {
-//                 continue
-//             }
+setInterval(() => {
+    for (let key of Object.keys(npcs)) {
+        let npc = npcs[key]
+        if (dw.distance(dw.c, npc) < 1) {
+            if (npc.nearPlayer) {
+                continue
+            }
 
-//             npc.nearPlayer = true
+            npc.nearPlayer = true
 
-//             npc.callback()
-//         }
-//         else {
-//             npc.nearPlayer = false
-//         }
-//     }
-// }, 100)
+            npc.callback()
+        }
+        else {
+            npc.nearPlayer = false
+        }
+    }
+}, 100)
 
 setTimeout(() => {
 
