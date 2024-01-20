@@ -268,6 +268,8 @@ class ComputerVision {
         if (!target)
             return false
 
+        if(target.z != from.z) return false
+
         for (let e of nonTraversableEntities) {
             if ("id" in e && "id" in target && e.id === target.id)
                 continue
