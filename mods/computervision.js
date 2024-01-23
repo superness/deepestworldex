@@ -121,9 +121,6 @@ class ComputerVision {
     }
 
     static getMyBattleScore(c, useMaxHp = false) {
-
-        return 6000
-
         let hpScorePart = (useMaxHp ? c.maxHp : c.hp) + (c.skills.some(e => e?.md == "painkiller") ? (useMaxHp ? c.maxMp : c.mp) : 0)
 
         let potentialScore = (ComputerVision.getMyDmg(c) + c.hpRegen + (c.skills.some(e => e?.md == "painkiller") ? c.mpRegen : 0)) * hpScorePart
@@ -157,6 +154,8 @@ class ComputerVision {
 
     static isValidTarget(entity, nonTraversableEntities, c, monsters, targetZoneLevel, nearMonsterUnsafeRadius) {
         if (entity.targetId == c.id) return true
+
+        if(entity.z != c.z) return false
 
         // If I have a target, but am not in combat, and it is hostile, and I am in range of it
         //  then no other entity is a valid target to swap to
@@ -212,9 +211,9 @@ class ComputerVision {
             return false
         }
         let mpRequired = ComputerVision.getMpRequiredToDefeatMonster(entity, c)
-        if (c.mp < mpRequired) {
-            //return false
-        }
+        // if (c.mp < mpRequired) {
+        //     //return false
+        // }
         monsters = monsters.filter((e) => e.ai && e.id != entity.id)
         for (let monster of monsters) {
             if (ComputerVision.distance(monster, entity) < nearMonsterUnsafeRadius) {
@@ -267,8 +266,6 @@ class ComputerVision {
     static hasLineOfSight(target, from, nonTraversableEntities = [], thickCheckOverride = null) {
         if (!target)
             return false
-
-        if(target.z != from.z) return false
 
         for (let e of nonTraversableEntities) {
             if ("id" in e && "id" in target && e.id === target.id)
@@ -557,21 +554,7 @@ setTimeout(() => {
             gridUpdatePeriod: gridUpdatePeriod,
             monsters: monsters,
             nonTraversableEntities: getNonTraversableEntities(),
-            c: {
-                mission: dw.c.mission,
-                party: dw.c.party, 
-                id: dw.c.id, 
-                x: dw.c.x, 
-                y: dw.c.y, 
-                skills: dw.c.skills, 
-                hp: dw.c.hp, 
-                hpMax: dw.c.maxHp, 
-                hpRegen: dw.c.stats.hpRegen, 
-                mp: dw.c.mp, 
-                mpMax: dw.c.maxMp, 
-                mpRegen: dw.c.stats.mpRegen, 
-                combat: dw.c.combat
-            },
+            c: dw.c,
             gridWidth: gridWidth,
             gridHeight: gridHeight,
             gridArrWidth: gridArrWidth,
