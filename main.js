@@ -94,7 +94,7 @@ function onStart()
                         
                         win.webContents.executeJavaScript(`
                         document.querySelector("#stop-code").click();
-                        document.querySelector("textarea#code-editor").value = ${JSON.stringify(data)};
+                        dw.editor.session.setValue(${JSON.stringify(data)});
                         document.querySelector("#start-code").click();
                       `)
                     })
