@@ -29,7 +29,7 @@ class ComputerVision {
         if (healingRuneParts.filter(p => skill.md.toLowerCase().includes(p)).length > 0)
             return 0
         let skillDmg = (skill.acid + skill.cold + skill.fire + skill.elec + skill.phys) ?? 0
-        let totalDmg = Math.floor(skillDmg * (1.0 - skill.crit) + (skill.crit * skill.critMult * skillDmg)) * (skill.mods?.mpToHpCost == 1 ? 0.5 : 1)
+        let totalDmg = Math.floor(skillDmg * (1.0 - skill.crit) + (skill.crit * skill.critMult * skillDmg)
         return totalDmg
     }
 
