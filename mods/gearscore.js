@@ -19,7 +19,7 @@ function getMyLowestArmor() {
 function getMyGearScore(useMaxHp = false) {
     let bestSkill = dw.c.skills[0]
 
-    let hpScorePart = (useMaxHp ? dw.c.maxHp : dw.c.hp) + ((dw.c.skills[0].fx?.mpToHpCost == 1) ? (useMaxHp ? dw.c.maxMp : dw.c.mp) : 0)
+    let hpScorePart = (useMaxHp ? dw.c.maxHp : dw.c.hp) + ((dw.c.skills[0].mods?.mpToHpCost == 1) ? (useMaxHp ? dw.c.maxMp : dw.c.mp) : 0)
 
     let skillGearScoreDmg = getGearScoreSkillDamage(dw.c.skills[0])// * 1.5 // TODO hack add regen from conservation
 
