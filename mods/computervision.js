@@ -29,7 +29,7 @@ class ComputerVision {
         if (healingRuneParts.filter(p => skill.md.toLowerCase().includes(p)).length > 0)
             return 0
         let skillDmg = (skill.acid + skill.cold + skill.fire + skill.elec + skill.phys) ?? 0
-        let totalDmg = Math.floor(skillDmg * (1.0 - skill.crit) + (skill.crit * skill.critMult * skillDmg)) * (skill.fx?.mpToHpCost == 1 ? 0.5 : 1)
+        let totalDmg = Math.floor(skillDmg * (1.0 - skill.crit) + (skill.crit * skill.critMult * skillDmg)) * (skill.mods?.mpToHpCost == 1 ? 0.5 : 1)
         return totalDmg
     }
 
@@ -121,9 +121,9 @@ class ComputerVision {
     }
 
     static getMyBattleScore(c, useMaxHp = false) {
-        let hpScorePart = (useMaxHp ? c.maxHp : c.hp) + (c.skills.some(e => e?.md == "painkiller") ? (useMaxHp ? c.maxMp : c.mp) : 0)
+        let hpScorePart = (useMaxHp ? c.maxHp : c.hp) + (c.skills.some(e => e.mods?.mpToHpCost == 1) ? (useMaxHp ? c.maxMp : c.mp) : 0)
 
-        let potentialScore = (ComputerVision.getMyDmg(c) + c.hpRegen + (c.skills.some(e => e?.md == "painkiller") ? c.mpRegen : 0)) * hpScorePart
+        let potentialScore = (ComputerVision.getMyDmg(c) + c.hpRegen + (c.skills.some(e => e?.mods?.mpToHpCost == 1) ? c.mpRegen : 0)) * hpScorePart
         let maxTargetLife = ComputerVision.getMaxDamageDealtBeforeOom(c)
         let maxDmgScore = maxTargetLife * (ComputerVision.getMyDmg(c))
         let dmgScorePart = Math.min(maxDmgScore, potentialScore)
