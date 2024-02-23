@@ -16,7 +16,7 @@ function isSkillReadyOverride(skillBagIndex) {
 
 let latencyHedge = 300
 function getSkillCooldown(skillName) {
-    return (dw.md.skills[skillName]?.cd ?? 1500) - latencyHedge
+    return (dw.md.skills[skillName]?.cd ?? dw.constants.GCD_BASE) - latencyHedge
 }
 
 let lastSkillMsg = "SKILL"
