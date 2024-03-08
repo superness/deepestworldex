@@ -13,6 +13,8 @@ setTimeout(() => {
         let nonTraversableEntities = getNonTraversableEntities()
         for (let monster of monsters) {
 
+            if(monster.z != dw.c.z) continue
+            
             let smoothPos = monster.id in entititiesSmoothPosMap ? entititiesSmoothPosMap[monster.id] : monster
             let x2 = smoothPos.x * 96 - camOffsetX
             let y2 = smoothPos.y * 96 - camOffsetY - 110
