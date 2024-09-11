@@ -59,9 +59,6 @@ async function tryAttack() {
 
     if ((!target || target.hp == target.maxHp) && monsterTargettingMe && target != monsterTargettingMe) {
         target = monsterTargettingMe
-         if (!recordThat.getIsRecording()) {
-             recordThat.start()
-         }
     }
 
     if (!target) {
