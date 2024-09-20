@@ -25,7 +25,7 @@ dw.on("hit", (data) => {
 
     for (let hit of data) {
 
-        if (!hit.amount)
+        if (!hit.dem)
             continue
 
         let target = dw.findEntities((entity) => entity.id === hit.target).shift()
