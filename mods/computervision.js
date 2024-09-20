@@ -113,7 +113,7 @@ class ComputerVision {
             return 1
         }
 
-        let dmg = 10 * Math.pow(1.1, monster.level) + 5 * monster.level
+        let dmg = 10 * Math.pow(1.1, monster.level) + (5 * (monster.level - 1))
         if (monster.r ?? 0 > 1) {
             let rUse = monster.r
             if ((c.mission?.item.r ?? 0) > 0) {
@@ -122,7 +122,7 @@ class ComputerVision {
             dmg *= 1 + rUse * 0.5
         }
 
-        let finalDmg = Math.max(1, (dmg * (monster.md.includes('Pow') ? 1.25 : 1))) * 1.1
+        let finalDmg = Math.max(1, (dmg * (monster.md.includes('Pow') ? 1.25 : 1)))
         
         if(monster.md.toLowerCase().includes('king'))
         {
@@ -132,10 +132,10 @@ class ComputerVision {
         {
             finalDmg *= 2
         }
-        // if(monster.md.toLowerCase().includes('elemental'))
-        // {
-        //     finalDmg *= 1.3
-        // }
+        if(monster.md.toLowerCase().includes('elemental'))
+        {
+            finalDmg *= 1.3
+        }
         if(monster.md.toLowerCase().includes('alarm'))
         {
             finalDmg *= 10
@@ -149,11 +149,11 @@ class ComputerVision {
         //     finalDmg *= 1.2
         // }
 
-        return finalDmg - ((c.stats.hpRegen))
+        return finalDmg - ((c.stats.hpRegen ?? 0))
     }
 
     static getMonsterDmgReduction() {
-        return 0.9
+        return 1
     }
 
     static getMyDmg(c) {
@@ -191,9 +191,9 @@ class ComputerVision {
 
         let hpScorePart = (useMaxHp ? c.maxHp : c.hp)
 
-        let potentialScore = (ComputerVision.getSkillDamage(c.skills[0]) - c.skills[0].cost) * hpScorePart
+        let potentialScore = (ComputerVision.getSkillDamage(c.skills[0])) * hpScorePart
         let maxTargetLife = ComputerVision.getMaxDamageDealtBeforeOom(c)
-        let maxDmgScore = maxTargetLife * (ComputerVision.getSkillDamage(c.skills[0]) - c.skills[0].cost)
+        let maxDmgScore = maxTargetLife * (ComputerVision.getSkillDamage(c.skills[0]))
         let dmgScorePart = Math.min(maxDmgScore, potentialScore)
         let battleScore = Math.sqrt(dmgScorePart)
 
@@ -224,6 +224,8 @@ class ComputerVision {
         if (entity.targetId == c.id) return true
 
         if(entity.z != c.z) return false
+
+        if(entity.md.startsWith('deer')) return false
 
         if(entity.md.startsWith('npc')) return false
 
@@ -689,18 +691,18 @@ setTimeout(() => {
                 ctx.fillStyle = `rgb(0, 0, 0, 0.5)`
             }
         }
-        let target = dw.findEntities((entity) => entity.id === dw.targetId).shift()
-        ctx.lineWidth = 4
-        if (moveToSpot) {
-            drawLineToPOI(ctx, cx, cy, moveToSpot, `rgb(0, 255, 0, 0.9`)
-            drawLineToPOI(ctx, cx, cy, movingToSpot, `rgb(231, 0, 255, 0.9)`)
-        }
-        drawLineToPOI(ctx, cx, cy, target, `rgb(245, 239, 66, 0.9)`, { x: dw.c.x, y: dw.c.y - 0.5 })
+        // let target = dw.findEntities((entity) => entity.id === dw.targetId).shift()
+        // ctx.lineWidth = 4
+        // if (moveToSpot) {
+        //     drawLineToPOI(ctx, cx, cy, moveToSpot, `rgb(0, 255, 0, 0.9`)
+        //     drawLineToPOI(ctx, cx, cy, movingToSpot, `rgb(231, 0, 255, 0.9)`)
+        // }
+        // drawLineToPOI(ctx, cx, cy, target, `rgb(245, 239, 66, 0.9)`, { x: dw.c.x, y: dw.c.y - 0.5 })
 
-        let monstersTargettingMe = dw.findEntities(e => e.targetId && e.targetId == dw.c.id)
-        for (var monster of monstersTargettingMe) {
-            drawLineToPOI(ctx, cx, cy, dw.c, 'white', { x: monster.x, y: monster.y - 0.5 })
-        }
+        // let monstersTargettingMe = dw.findEntities(e => e.targetId && e.targetId == dw.c.id)
+        // for (var monster of monstersTargettingMe) {
+        //     drawLineToPOI(ctx, cx, cy, dw.c, 'white', { x: monster.x, y: monster.y - 0.5 })
+        // }
     })
 }, 100)
 
