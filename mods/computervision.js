@@ -149,7 +149,7 @@ class ComputerVision {
         //     finalDmg *= 1.2
         // }
 
-        return finalDmg - ((c.stats.hpRegen + c.stats.mpRegen)) - (8000 * c.party.length)
+        return finalDmg - ((c.stats.hpRegen))
     }
 
     static getMonsterDmgReduction() {
@@ -189,7 +189,7 @@ class ComputerVision {
     static getMyBattleScore(c, useMaxHp = false, variableBattleScore = 0) {
         //return variableBattleScore
 
-        let hpScorePart = (useMaxHp ? c.maxHp : c.hp) + (useMaxHp ? c.maxMp : c.mp)
+        let hpScorePart = (useMaxHp ? c.maxHp : c.hp)
 
         let potentialScore = (ComputerVision.getSkillDamage(c.skills[0]) - c.skills[0].cost) * hpScorePart
         let maxTargetLife = ComputerVision.getMaxDamageDealtBeforeOom(c)
