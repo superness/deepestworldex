@@ -149,7 +149,13 @@ class ComputerVision {
         //     finalDmg *= 1.2
         // }
 
-        return finalDmg - ((c.stats.hpRegen ?? 0))
+        finalDmg -= ((c.stats.hpRegen ?? 0))
+        
+        if(c.skills[0].mods.conservation) {
+            finalDmg -= this.getSkillDamage(c.skills[0]) * 0.33
+        }
+
+        return finalDmg
     }
 
     static getMonsterDmgReduction() {
