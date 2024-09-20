@@ -113,7 +113,7 @@ class ComputerVision {
             return 1
         }
 
-        let dmg = 10 * Math.pow(1.1, monster.level)
+        let dmg = 10 * Math.pow(1.1, monster.level) + 5 * monster.level
         if (monster.r ?? 0 > 1) {
             let rUse = monster.r
             if ((c.mission?.item.r ?? 0) > 0) {
