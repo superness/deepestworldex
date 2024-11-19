@@ -10,12 +10,19 @@ function getMSSinceSkillUsed(skillBagIndex) {
 
 function isSkillReadyOverride(skillBagIndex) {
     let mssince = getMSSinceSkillUsed(skillBagIndex)
-    return mssince > getSkillCooldown(dw.c.skills[skillBagIndex].md)
+    //statusMessage = `cd ${mssince}`
+
+    //console.log('isSkillReadyOverride', dw.c.skills[skillBagIndex].md, mssince, getSkillCooldown(skillBagIndex))
+
+    return mssince > getSkillCooldown(skillBagIndex)
 }
 
-let latencyHedge = 300
-function getSkillCooldown(skillName) {
-    return (dw.md.skills[skillName]?.cd ?? dw.constants.GCD_BASE) - latencyHedge
+let latencyHedge = 100
+// function getSkillCooldown(skillName) {
+//     return (dw.md.skills[skillName]?.cd ?? dw.constants.GCD_BASE) - latencyHedge
+// }
+function getSkillCooldown(skillIdx) {
+    return dw.c.skills[skillIdx].gcd - latencyHedge
 }
 
 let lastSkillMsg = "SKILL"
@@ -27,7 +34,7 @@ dw.on("gcd", data => {
     for (let i = 0; i < dw.c.skills.length; ++i) {
         let skill = dw.c.skills[i]
         if (!skill) continue
-        if (dw.md.skills[skill.md]) continue
+        //if (dw.md.skills[skill.md]) continue
         skillUsedMap[i] = new Date()
     }
 })

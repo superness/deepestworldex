@@ -161,7 +161,12 @@ async function tryAttack() {
             await dw.move()
             await sleep(200)
         }
-        dw.useSkill(skillUseIdx, target.id)
+        try
+        {
+            dw.useSkill(skillUseIdx, target.id)
+        }
+        catch {}
+        
         return true
     }
 

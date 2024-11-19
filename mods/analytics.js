@@ -145,64 +145,69 @@ class DWAnalytics {
     }
 
     async onStart() {
-        console.log("🌄  A new dawn breaks. With hope in our hearts, we stand once more.");
-        try {
-            // Check if we exist in the db yet
-            let url = `${this.apiBaseUrl}/Characters/ByDWId/${this.getDBIdKey()}`;
-            let data = await this.getJson(url);
-            console.log('got this character', data)
+        // console.log("🌄  A new dawn breaks. With hope in our hearts, we stand once more.");
+        // try {
+        //     // Check if we exist in the db yet
+        //     let url = `${this.apiBaseUrl}/Characters/ByDWId/${this.getDBIdKey()}`;
+        //     let data = await this.getJson(url);
+        //     console.log('got this character', data)
 
-            this.setDBId(data.id)
-        }
-        // It's probably 404 (not found) so make it
-        catch (ex) {
-            console.log("🌱  From the Ashes of the past, new life emerges. We define our existence anew.");
-            let url = `${this.apiBaseUrl}/Characters?name=${this.character.name}&level=${this.character.level}&dwId=${this.getDBIdKey()}&description=somebot`;
-            let data = await this.postJson(url);
-            this.setDBId(data.id)
-            console.log("🔮  A new thread weaves into the tapestry of time. Our journey is remembered.");
-        }
+        //     this.setDBId(data.id)
+        // }
+        // // It's probably 404 (not found) so make it
+        // catch (ex) {
+        //     console.log("🌱  From the Ashes of the past, new life emerges. We define our existence anew.");
+        //     let url = `${this.apiBaseUrl}/Characters?name=${this.character.name}&level=${this.character.level}&dwId=${this.getDBIdKey()}&description=somebot`;
+        //     let data = await this.postJson(url);
+        //     this.setDBId(data.id)
+        //     console.log("🔮  A new thread weaves into the tapestry of time. Our journey is remembered.");
+        // }
 
-        dw.log(`you can watch your character here https://deepestworldex.com/Character?id=${this.getDBId()}`)
-        console.log('you can watch your character here', `https://deepestworldex.com/Character?id=${this.getDBId()}`)
+        // dw.log(`you can watch your character here https://deepestworldex.com/Character?id=${this.getDBId()}`)
+        // console.log('you can watch your character here', `https://deepestworldex.com/Character?id=${this.getDBId()}`)
     }
 
     async onCombatLogEvent(characterId, monsterName, damage, description, isCharacterHit, skillUsed, when, monsterID, characterHP, characterHPMax, monsterHP, monsterHPMax, monsterLevel, monsterRarity) {
-        console.log("💥 Combat Log Event");
-        const url = `${this.apiBaseUrl}/CombatLog?characterId=${characterId}&monsterName=${monsterName}&damage=${damage}&description=${description}&isCharacterHit=${isCharacterHit}&skillUsed=${skillUsed}&when=${when}&monsterID=${monsterID}&characterHP=${characterHP}&characterHPMax=${characterHPMax}&monsterHP=${monsterHP}&monsterHPMax=${monsterHPMax}&monsterLevel=${monsterLevel ?? 0}&monsterRarity=${monsterRarity}`;
-        const data = await this.postJson(url);
-        console.log("📜 Logged combat event.");
-        return data;
+        // console.log("💥 Combat Log Event");
+        // const url = `${this.apiBaseUrl}/CombatLog?characterId=${characterId}&monsterName=${monsterName}&damage=${damage}&description=${description}&isCharacterHit=${isCharacterHit}&skillUsed=${skillUsed}&when=${when}&monsterID=${monsterID}&characterHP=${characterHP}&characterHPMax=${characterHPMax}&monsterHP=${monsterHP}&monsterHPMax=${monsterHPMax}&monsterLevel=${monsterLevel ?? 0}&monsterRarity=${monsterRarity}`;
+        // const data = await this.postJson(url);
+        // console.log("📜 Logged combat event.");
+        //return data;
+        return null;
     }
 
     async onDeath(nameOfMurderer, levelOfMurderer, maxHPOfMurderer, description = "death", when = encodeURIComponent(new Date().toISOString())) {
-        logMessages.addMessage("💔  The weight of loss is heavy. Yet we endure, carrying their memory within us.");
-        const url = `${this.apiBaseUrl}/CharacterDeaths/CharacterDeathsEx?characterId=${this.getDBId()}&murderer=${nameOfMurderer}&level=${levelOfMurderer}&maxHP=${maxHPOfMurderer}&description=${description}&when=${when}`;
-        const data = await this.postJson(url);
-        console.log("⌛  The Sands of Time hold our sorrows. Our fallen friend, remembered.");
-        return data;
+        // logMessages.addMessage("💔  The weight of loss is heavy. Yet we endure, carrying their memory within us.");
+        // const url = `${this.apiBaseUrl}/CharacterDeaths/CharacterDeathsEx?characterId=${this.getDBId()}&murderer=${nameOfMurderer}&level=${levelOfMurderer}&maxHP=${maxHPOfMurderer}&description=${description}&when=${when}`;
+        // const data = await this.postJson(url);
+        // console.log("⌛  The Sands of Time hold our sorrows. Our fallen friend, remembered.");
+        //return data;
+        return null;
     }
 
     async onLevel(level, description = "level") {
-        console.log("💖  Healing is not linear. With each step, we grow stronger, not forgetting, but carrying on.");
-        const url = `${this.apiBaseUrl}/CharacterLevelUps?characterId=${this.getDBId()}&level=${level}&description=${description}`;
-        const data = await this.postJson(url);
-        console.log("🌈  Progress may be invisible, but it is real. We honor our journey, marking each step.");
-        return data;
+        // console.log("💖  Healing is not linear. With each step, we grow stronger, not forgetting, but carrying on.");
+        // const url = `${this.apiBaseUrl}/CharacterLevelUps?characterId=${this.getDBId()}&level=${level}&description=${description}`;
+        // const data = await this.postJson(url);
+        // console.log("🌈  Progress may be invisible, but it is real. We honor our journey, marking each step.");
+        //return data;
+        return null;
     }
 
     async onKill(monsterName, monsterLevel, monsterRank, description = "kill", when = encodeURIComponent(new Date().toISOString())) {
-        logMessages.addMessage("⚔️  We meet adversity with courage. Each victory, a testament to our resilience.");
-        const url = `${this.apiBaseUrl}/MonsterKills/MonsterKillsEx?characterId=${this.getDBId()}&monsterName=${monsterName}&monsterLevel=${monsterLevel}&monsterRank=${monsterRank}&description=${description}&when=${when}`;
-        const data = await this.postJson(url);
-        console.log("🏆  We carve our path through the echoes of the past. Each challenge, a stepping stone.");
-        return data;
+        // logMessages.addMessage("⚔️  We meet adversity with courage. Each victory, a testament to our resilience.");
+        // const url = `${this.apiBaseUrl}/MonsterKills/MonsterKillsEx?characterId=${this.getDBId()}&monsterName=${monsterName}&monsterLevel=${monsterLevel}&monsterRank=${monsterRank}&description=${description}&when=${when}`;
+        // const data = await this.postJson(url);
+        // console.log("🏆  We carve our path through the echoes of the past. Each challenge, a stepping stone.");
+        //return data;
+        return null;
     }
 
     async onLoot(itemType, itemLevel, itemRarity, description = "loot") {
-        const url = `${this.apiBaseUrl}/CharacterLootEvents?characterId=${this.getDBId()}&itemType=${itemType}&itemLevel=${itemLevel}&itemRarity=${itemRarity}&description=${description}`;
-        const data = await this.postJson(url);
-        return data
+        // const url = `${this.apiBaseUrl}/CharacterLootEvents?characterId=${this.getDBId()}&itemType=${itemType}&itemLevel=${itemLevel}&itemRarity=${itemRarity}&description=${description}`;
+        // const data = await this.postJson(url);
+        //return data;
+        return null;
     }
 
     async divineIntervention(method, url, data = null) {
