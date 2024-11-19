@@ -142,16 +142,19 @@ function onStart() {
 
   ipcMain.on('received-ws-data', (event, data) => {
     //console.log('received-ws-data', event, data)
-
-    const json = JSON.parse(data);
-    const eventName = json[1];
-    if (eventName === 'callLimitDc') {
-      let date = new Date();
-      let easternTime = date.toLocaleString("en-US", {timeZone: "America/New_York"});
-      console.log(`[${easternTime}] DISCONNECTED - callLimitDc. ${JSON.stringify(json[2])}`);
-      console.log("Events Buffer: ");
-      console.log(JSON.stringify(eventsBuffer, undefined, 2));
+    try
+    {
+      const json = JSON.parse(data);
+      const eventName = json[1];
+      if (eventName === 'callLimitDc') {
+        let date = new Date();
+        let easternTime = date.toLocaleString("en-US", {timeZone: "America/New_York"});
+        console.log(`[${easternTime}] DISCONNECTED - callLimitDc. ${JSON.stringify(json[2])}`);
+        console.log("Events Buffer: ");
+        console.log(JSON.stringify(eventsBuffer, undefined, 2));
+      }
     }
+    catch {}
   })
 }
 
